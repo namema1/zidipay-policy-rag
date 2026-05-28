@@ -1,0 +1,108 @@
+ZIDIPAY FINANCIAL TECHNOLOGIES
+PUBLIC HOLIDAYS AND WORKING HOURS
+
+Document ID: ZDP-HR-006
+Effective date: 2024-01-01
+Owner: People Operations
+
+1. WORKING HOURS
+
+Standard working hours are 08:00 to 17:00 local time, Monday through Friday,
+with a one-hour lunch break taken between 12:00 and 14:00 at the employee's
+discretion.
+
+Core hours, when all employees must be reachable on Slack and Zoom, are
+10:00 to 15:00 local time. Hours outside core may be flexed with manager
+approval. Employees on shift work (Customer Support 24/7 rota, on-call SRE)
+follow the schedule published in the shift planner.
+
+2. OVERTIME
+
+Overtime applies to employees in non-managerial roles at Level 3 and below
+who work more than 45 hours in a week. Overtime is paid at:
+
+  - 1.5x base hourly rate for hours over 45 in a weekday week,
+  - 2.0x base hourly rate for hours worked on a rest day (typically Saturday),
+  - 2.0x base hourly rate for hours worked on a public holiday.
+
+Overtime must be authorised by the line manager in writing in advance.
+Unauthorised overtime is not reimbursable.
+
+3. PUBLIC HOLIDAYS — KENYA (2024)
+
+  - New Year's Day                  Monday      1 January 2024
+  - Good Friday                     Friday      29 March 2024
+  - Easter Monday                   Monday      1 April 2024
+  - Labour Day                      Wednesday   1 May 2024
+  - Madaraka Day                    Saturday    1 June 2024
+  - Eid al-Fitr (provisional)       Wednesday   10 April 2024
+  - Eid al-Adha (provisional)       Sunday      16 June 2024
+  - Mashujaa Day                    Sunday      20 October 2024
+  - Jamhuri Day                     Thursday    12 December 2024
+  - Christmas Day                   Wednesday   25 December 2024
+  - Boxing Day (Utamaduni Day)      Thursday    26 December 2024
+
+4. PUBLIC HOLIDAYS — UGANDA (2024)
+
+  - New Year's Day                  1 January
+  - NRM Liberation Day              26 January
+  - International Women's Day       8 March
+  - Good Friday and Easter Monday   variable
+  - Labour Day                      1 May
+  - Martyrs' Day                    3 June
+  - Heroes' Day                     9 June
+  - Eid al-Fitr and Eid al-Adha     variable
+  - Independence Day                9 October
+  - Christmas Day                   25 December
+  - Boxing Day                      26 December
+
+5. PUBLIC HOLIDAYS — TANZANIA (2024)
+
+  - New Year's Day                  1 January
+  - Zanzibar Revolution Day         12 January
+  - Karume Day                      7 April
+  - Good Friday and Easter Monday   variable
+  - Union Day                       26 April
+  - Workers' Day                    1 May
+  - Saba Saba                       7 July
+  - Nane Nane                       8 August
+  - Eid al-Fitr and Eid al-Adha     variable
+  - Nyerere Day                     14 October
+  - Independence Day                9 December
+  - Christmas Day                   25 December
+  - Boxing Day                      26 December
+
+6. PUBLIC HOLIDAYS — RWANDA (2024)
+
+  - New Year's Day                  1 January
+  - Day after New Year              2 January
+  - National Heroes' Day            1 February
+  - Genocide Memorial Day           7 April
+  - Good Friday and Easter Monday   variable
+  - Labour Day                      1 May
+  - Eid al-Fitr and Eid al-Adha     variable
+  - Independence Day                1 July
+  - Liberation Day                  4 July
+  - Assumption Day                  15 August
+  - Christmas Day                   25 December
+  - Boxing Day                      26 December
+
+7. HOLIDAYS FALLING ON A WEEKEND
+
+Where a public holiday falls on a Saturday or Sunday, employees do not
+automatically receive a day off in lieu unless the relevant national
+government gazettes one. Country leads in People Operations will confirm
+by email at the start of each year.
+
+8. CHRISTMAS CLOSE-DOWN
+
+Zidipay closes from 24 December (last working day before Christmas Eve) and
+reopens on the first working day in January. Critical functions (Operations,
+Customer Support, on-call SRE, Security) operate a reduced rota during the
+close-down; staff on that rota receive a compensatory day off in January.
+
+9. CALENDAR
+
+A single shared "Zidipay Holidays" Google Calendar shows all four countries'
+holidays. Employees should subscribe at onboarding. Country-specific holiday
+calendars are also available on request.

@@ -1,0 +1,828 @@
+{
+  "summary": {
+    "n_in_corpus": 20,
+    "n_out_of_corpus": 4,
+    "groundedness_pct": 85.0,
+    "groundedness_with_partial_pct": 85.0,
+    "citation_accuracy_llm_pct": 85.0,
+    "citation_accuracy_deterministic_doc_pct": 95.0,
+    "citation_accuracy_deterministic_keyword_pct": 65.0,
+    "refusal_correct_in_pct": 95.0,
+    "refusal_correct_out_pct": 100.0,
+    "refusal_overall_pct": 95.8,
+    "substring_match_pct": 0.0,
+    "partial_match_pct": 85.0,
+    "latency_p50_ms": 4440,
+    "latency_p95_ms": 5867,
+    "config": {
+      "top_k": null,
+      "chunk_size": null,
+      "use_reranker": null
+    }
+  },
+  "per_question": [
+    {
+      "id": "Q01",
+      "topic": "PTO",
+      "question": "How many days of annual leave does a permanent employee accrue per year at Zidipay?",
+      "answer": "Permanent employees at Zidipay accrue 24 working days of paid annual leave per calendar year, accrued at 2 days per month worked [2].",
+      "refused": false,
+      "latency_ms": 17003,
+      "gold_answer": "Permanent employees accrue 24 working days of paid annual leave per calendar year, at 2 days per month.",
+      "expected_source": {
+        "doc_id": "pto-and-leave-policy",
+        "section_keywords": [
+          "Annual leave"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "pto-and-leave-policy",
+          "doc_title": "PTO and Leave Policy",
+          "section": "PTO and Leave Policy > 1. Annual leave",
+          "source": "pto-and-leave-policy.md",
+          "snippet": "## 1. Annual leave Permanent employees accrue **24 working days** of paid annual leave per calendar year, accrued at **2 days per month** worked. New joiners may take leave once they have completed three months of service; before that, leave is accrued but not yet eligible to be taken except in exceptional circumstanc\u2026",
+          "chunk_id": "pto-and-leave-policy:0001"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": true
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "Direct match in context block [2]"
+      },
+      "substring_match": false,
+      "token_overlap": 1.0
+    },
+    {
+      "id": "Q02",
+      "topic": "PTO",
+      "question": "How many days of annual leave can be carried over into the next year and by when must they be used?",
+      "answer": "Up to 5 days of unused annual leave can be carried over into the next year and must be used by 31 March [1]. Any carried-over days unused by this date are forfeited, unless written approval for carry-over beyond 5 days is granted by the Head of People [1].",
+      "refused": false,
+      "latency_ms": 4102,
+      "gold_answer": "Up to 5 unused days may be carried into the next calendar year and must be used by 31 March.",
+      "expected_source": {
+        "doc_id": "pto-and-leave-policy",
+        "section_keywords": [
+          "Carry-over"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "pto-and-leave-policy",
+          "doc_title": "PTO and Leave Policy",
+          "section": "PTO and Leave Policy > 3. Carry-over",
+          "source": "pto-and-leave-policy.md",
+          "snippet": "## 3. Carry-over Up to **5 days** of unused annual leave may be carried into the next calendar year and must be used by **31 March**. Carried-over days that are unused by that date are forfeited. Carry-over beyond 5 days requires written approval from the Head of People and is only granted where business reasons preve\u2026",
+          "chunk_id": "pto-and-leave-policy:0003"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": true
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "answer matches context"
+      },
+      "substring_match": false,
+      "token_overlap": 0.8461538461538461
+    },
+    {
+      "id": "Q03",
+      "topic": "PTO",
+      "question": "How much maternity leave does Zidipay offer?",
+      "answer": "I can only answer questions about Zidipay's policies and procedures.",
+      "refused": true,
+      "latency_ms": 4363,
+      "gold_answer": "90 calendar days of fully paid maternity leave, with up to an additional 30 days of unpaid leave on request.",
+      "expected_source": {
+        "doc_id": "pto-and-leave-policy",
+        "section_keywords": [
+          "Parental"
+        ]
+      },
+      "citations": [],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": false,
+        "expected_section_keyword_hit": false
+      },
+      "judge": {
+        "groundedness": "skipped",
+        "citation_supports_answer": false,
+        "reason": "refused"
+      },
+      "substring_match": false,
+      "token_overlap": 0.0
+    },
+    {
+      "id": "Q04",
+      "topic": "Expense",
+      "question": "What is the per-head limit for a client dinner?",
+      "answer": "The per-head limit for a client dinner is KES 8,000 [1].",
+      "refused": false,
+      "latency_ms": 4449,
+      "gold_answer": "KES 8,000 per head.",
+      "expected_source": {
+        "doc_id": "expense-and-reimbursement-policy",
+        "section_keywords": [
+          "Meal",
+          "client",
+          "entertainment"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "expense-and-reimbursement-policy",
+          "doc_title": "Expense and Reimbursement Policy",
+          "section": "Expense and Reimbursement Policy > 3. Meal and client-entertainment limits",
+          "source": "expense-and-reimbursement-policy.md",
+          "snippet": "## 3. Meal and client-entertainment limits | Category | Daily limit (per person) | | --- | --- | | Solo meal while travelling (no per diem claimed) | KES 3,500 lunch / KES 5,500 dinner | | Internal team meal | KES 4,000 | | **Client dinner** | **KES 8,000 per head** | | Off-site / quarterly team event | Pre-approved b\u2026",
+          "chunk_id": "expense-and-reimbursement-policy:0003"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": true
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "Direct match in context"
+      },
+      "substring_match": false,
+      "token_overlap": 1.0
+    },
+    {
+      "id": "Q05",
+      "topic": "Expense",
+      "question": "What is the domestic per-diem rate for business travel?",
+      "answer": "The domestic per-diem rate for business travel is KES 6,500 per night [1]. This rate covers meals and incidentals, unless meals are provided, in which case the per-diem should be reduced by KES 1,500 per meal [1].",
+      "refused": false,
+      "latency_ms": 5197,
+      "gold_answer": "KES 6,500 per night for domestic travel within your home country.",
+      "expected_source": {
+        "doc_id": "expense-and-reimbursement-policy",
+        "section_keywords": [
+          "Per diem"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "expense-and-reimbursement-policy",
+          "doc_title": "Expense and Reimbursement Policy",
+          "section": "Expense and Reimbursement Policy > 2. Per diems while travelling on company business",
+          "source": "expense-and-reimbursement-policy.md",
+          "snippet": "## 2. Per diems while travelling on company business | Location | Per diem (KES equivalent) | | --- | --- | | Domestic (Kenya, your home country office) | KES 6,500 per night | | Within East Africa (UG, TZ, RW from your home country) | KES 9,500 per night | | Outside East Africa | USD 80 per night | The per diem cover\u2026",
+          "chunk_id": "expense-and-reimbursement-policy:0002"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": true
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "answer matches context"
+      },
+      "substring_match": false,
+      "token_overlap": 0.6363636363636364
+    },
+    {
+      "id": "Q06",
+      "topic": "Expense",
+      "question": "How many days do I have to submit my expenses after incurring them?",
+      "answer": "You have 30 days to submit your expenses after incurring them [1], [2].",
+      "refused": false,
+      "latency_ms": 4510,
+      "gold_answer": "Expenses must be submitted within 30 days of being incurred.",
+      "expected_source": {
+        "doc_id": "expense-and-reimbursement-policy",
+        "section_keywords": [
+          "Principles",
+          "Submission"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "expense-and-reimbursement-policy",
+          "doc_title": "Expense and Reimbursement Policy",
+          "section": "Expense and Reimbursement Policy > 8. Submission process",
+          "source": "expense-and-reimbursement-policy.md",
+          "snippet": "## 8. Submission process 1. Submit via **Zidipay Expensify** within **30 days** of incurring the expense. 2. Attach an itemised receipt for every line; bank statements are not accepted. 3. Tag the project/cost-centre. 4. Your line manager (or higher per \u00a77) approves. 5. Finance pays approved claims on the next monthly\u2026",
+          "chunk_id": "expense-and-reimbursement-policy:0008"
+        },
+        {
+          "doc_id": "expense-and-reimbursement-policy",
+          "doc_title": "Expense and Reimbursement Policy",
+          "section": "Expense and Reimbursement Policy > 1. Principles",
+          "source": "expense-and-reimbursement-policy.md",
+          "snippet": "## 1. Principles Business expenses must be (a) reasonable, (b) directly necessary for Zidipay work, (c) supported by an itemised receipt, and (d) submitted within 30 days of being incurred. Personal expenses, alcohol consumed outside an approved client event, and fines (including parking and traffic fines) are never r\u2026",
+          "chunk_id": "expense-and-reimbursement-policy:0001"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": true
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "Context blocks [1] and [2] both state the 30-day submission period"
+      },
+      "substring_match": false,
+      "token_overlap": 0.2857142857142857
+    },
+    {
+      "id": "Q07",
+      "topic": "Remote work",
+      "question": "How many days per week are hybrid employees expected to be in the office?",
+      "answer": "Hybrid employees are expected to be in the office at least 3 days per week, with Tuesday and Wednesday being mandatory [1].",
+      "refused": false,
+      "latency_ms": 4020,
+      "gold_answer": "At least 3 days per week, with Tuesday and Wednesday as mandatory anchor days.",
+      "expected_source": {
+        "doc_id": "remote-and-hybrid-work-policy",
+        "section_keywords": [
+          "arrangements",
+          "Hybrid"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "remote-and-hybrid-work-policy",
+          "doc_title": "Remote and Hybrid Work Policy",
+          "section": "Remote and Hybrid Work Policy > 2. Work arrangements",
+          "source": "remote-and-hybrid-work-policy.md",
+          "snippet": "## 2. Work arrangements Zidipay supports three arrangements: - **In-office** \u2014 five days per week from your assigned office. - **Hybrid (default for most roles)** \u2014 at least **3 days per week in the office**, of which **Tuesday and Wednesday are mandatory anchor days** company-wide. The third day is set by the team ma\u2026",
+          "chunk_id": "remote-and-hybrid-work-policy:0002"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": true
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "answer matches context"
+      },
+      "substring_match": false,
+      "token_overlap": 0.9
+    },
+    {
+      "id": "Q08",
+      "topic": "Remote work",
+      "question": "Who is eligible for fully remote work at Zidipay?",
+      "answer": "Eligibility for fully remote work at Zidipay is determined on a case-by-case basis for roles at Level 4 and above, whose work does not require regular in-person collaboration, subject to Head of Department and Head of People approval [3].",
+      "refused": false,
+      "latency_ms": 4430,
+      "gold_answer": "Fully remote work is available case-by-case for roles at Level 4 and above, subject to Head of Department and Head of People approval.",
+      "expected_source": {
+        "doc_id": "remote-and-hybrid-work-policy",
+        "section_keywords": [
+          "arrangements",
+          "Eligibility"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "remote-and-hybrid-work-policy",
+          "doc_title": "Remote and Hybrid Work Policy",
+          "section": "Remote and Hybrid Work Policy > 2. Work arrangements",
+          "source": "remote-and-hybrid-work-policy.md",
+          "snippet": "## 2. Work arrangements Zidipay supports three arrangements: - **In-office** \u2014 five days per week from your assigned office. - **Hybrid (default for most roles)** \u2014 at least **3 days per week in the office**, of which **Tuesday and Wednesday are mandatory anchor days** company-wide. The third day is set by the team ma\u2026",
+          "chunk_id": "remote-and-hybrid-work-policy:0002"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": true
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "answer matches context block [3]"
+      },
+      "substring_match": false,
+      "token_overlap": 0.9333333333333333
+    },
+    {
+      "id": "Q09",
+      "topic": "Security",
+      "question": "How quickly must a suspected security incident be reported?",
+      "answer": "A suspected security incident must be reported within 60 minutes of discovery [1], [2], [5]. This can be done by emailing security@zidipay.example or calling the 24/7 security hotline at +254 711 000 999 [1], [2].",
+      "refused": false,
+      "latency_ms": 5281,
+      "gold_answer": "Within 60 minutes of discovery, by email to security@zidipay.example or via the 24/7 hotline.",
+      "expected_source": {
+        "doc_id": "information-security-policy",
+        "section_keywords": [
+          "Incident"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "information-security-policy",
+          "doc_title": "Information Security Policy",
+          "section": "Information Security Policy > 9. Incident reporting",
+          "source": "information-security-policy.md",
+          "snippet": "## 9. Incident reporting Any suspected security incident \u2014 including phishing attempts, lost devices, suspected malware, unauthorised access, and accidental disclosure of customer data \u2014 must be reported **within 60 minutes of discovery**: - Email **security@zidipay.example**, or - Call the 24/7 security hotline **+25\u2026",
+          "chunk_id": "information-security-policy:0009"
+        },
+        {
+          "doc_id": "incident-response-and-business-continuity",
+          "doc_title": "Incident Response and Business Continuity",
+          "section": "Incident Response and Business Continuity > 4. Reporting and escalation",
+          "source": "incident-response-and-business-continuity.md",
+          "snippet": "## 4. Reporting and escalation - **Suspected security incident** (lost device, phishing, suspected breach, unauthorised access): call **+254 711 000 999** within 60 minutes of discovery and email security@zidipay.example. - **Production incident**: declare in #incident-bridge in Slack; the on-call SRE will page in inc\u2026",
+          "chunk_id": "incident-response-and-business-continuity:0004"
+        },
+        {
+          "doc_id": "data-protection-and-privacy-policy",
+          "doc_title": "Data Protection and Privacy Policy",
+          "section": "Data Protection and Privacy Policy",
+          "source": "data-protection-and-privacy-policy.html",
+          "snippet": "8. Personal data breaches A personal data breach is a security incident leading to accidental or unlawful destruction, loss, alteration, unauthorised disclosure of, or access to, personal data. Suspected breaches must be reported to security@zidipay.example or +254 711 000 999 within 60 minutes of discovery. The DPO,\u2026",
+          "chunk_id": "data-protection-and-privacy-policy:0006"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": true
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "All claims are directly supported by context blocks [1], [2], and [5]"
+      },
+      "substring_match": false,
+      "token_overlap": 0.8
+    },
+    {
+      "id": "Q10",
+      "topic": "Security",
+      "question": "What is the required second factor for MFA at Zidipay?",
+      "answer": "The required second factor for MFA at Zidipay is the YubiKey hardware token issued during onboarding [1]. SMS-based MFA is explicitly prohibited due to SIM-swap risk [1].",
+      "refused": false,
+      "latency_ms": 4408,
+      "gold_answer": "The YubiKey hardware token. SMS-based MFA is explicitly prohibited.",
+      "expected_source": {
+        "doc_id": "information-security-policy",
+        "section_keywords": [
+          "Passwords",
+          "authentication"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "information-security-policy",
+          "doc_title": "Information Security Policy",
+          "section": "Information Security Policy > 2. Passwords and authentication",
+          "source": "information-security-policy.md",
+          "snippet": "## 2. Passwords and authentication - Use a unique passphrase of **at least 14 characters** for every Zidipay account. Reuse of passwords across systems is prohibited. - Use the company-issued password manager (1Password) to store passwords. Browser-saved passwords are not permitted on work accounts. - **Multi-factor a\u2026",
+          "chunk_id": "information-security-policy:0002"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": true
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "answer matches context"
+      },
+      "substring_match": false,
+      "token_overlap": 1.0
+    },
+    {
+      "id": "Q11",
+      "topic": "Public holidays",
+      "question": "When is Mashujaa Day observed in Kenya in 2024?",
+      "answer": "Mashujaa Day is observed in Kenya on Sunday, 20 October 2024 [1].",
+      "refused": false,
+      "latency_ms": 4204,
+      "gold_answer": "Sunday, 20 October 2024.",
+      "expected_source": {
+        "doc_id": "public-holidays-and-working-hours",
+        "section_keywords": [
+          "Kenya"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "public-holidays-and-working-hours",
+          "doc_title": "ZIDIPAY FINANCIAL TECHNOLOGIES",
+          "section": "ZIDIPAY FINANCIAL TECHNOLOGIES",
+          "source": "public-holidays-and-working-hours.txt",
+          "snippet": "Overtime must be authorised by the line manager in writing in advance. Unauthorised overtime is not reimbursable. 3. PUBLIC HOLIDAYS \u2014 KENYA (2024) - New Year's Day Monday 1 January 2024 - Good Friday Friday 29 March 2024 - Easter Monday Monday 1 April 2024 - Labour Day Wednesday 1 May 2024 - Madaraka Day Saturday 1 J\u2026",
+          "chunk_id": "public-holidays-and-working-hours:0001"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": false
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "Context block [1] contains the supporting passage for the answer"
+      },
+      "substring_match": false,
+      "token_overlap": 1.0
+    },
+    {
+      "id": "Q12",
+      "topic": "Public holidays",
+      "question": "What are Zidipay's core working hours?",
+      "answer": "Zidipay's core working hours are 10:00 to 15:00 local time, when all employees must be reachable on Slack and Zoom [1].",
+      "refused": false,
+      "latency_ms": 4359,
+      "gold_answer": "Core hours are 10:00 to 15:00 local time, when all employees must be reachable.",
+      "expected_source": {
+        "doc_id": "public-holidays-and-working-hours",
+        "section_keywords": [
+          "WORKING HOURS"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "public-holidays-and-working-hours",
+          "doc_title": "ZIDIPAY FINANCIAL TECHNOLOGIES",
+          "section": "ZIDIPAY FINANCIAL TECHNOLOGIES",
+          "source": "public-holidays-and-working-hours.txt",
+          "snippet": "ZIDIPAY FINANCIAL TECHNOLOGIES PUBLIC HOLIDAYS AND WORKING HOURS Document ID: ZDP-HR-006 Effective date: 2024-01-01 Owner: People Operations 1. WORKING HOURS Standard working hours are 08:00 to 17:00 local time, Monday through Friday, with a one-hour lunch break taken between 12:00 and 14:00 at the employee's discreti\u2026",
+          "chunk_id": "public-holidays-and-working-hours:0000"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": false
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "answer matches context"
+      },
+      "substring_match": false,
+      "token_overlap": 1.0
+    },
+    {
+      "id": "Q13",
+      "topic": "AML/KYC",
+      "question": "What is the maximum daily transaction limit for a Tier 1 wallet?",
+      "answer": "The maximum daily transaction limit for a Tier 1 wallet is KES 50,000 [2].",
+      "refused": false,
+      "latency_ms": 4167,
+      "gold_answer": "KES 50,000 per day, with a maximum balance of KES 100,000.",
+      "expected_source": {
+        "doc_id": "aml-kyc-policy",
+        "section_keywords": [
+          "Tier 1"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "aml-kyc-policy",
+          "doc_title": "Zidipay AML and KYC Policy",
+          "section": "Zidipay AML and KYC Policy",
+          "source": "aml-kyc-policy.pdf",
+          "snippet": "senior-management sign-off to onboard or continue the relationship; and increased monitoring frequency. 3. KYC tiers and limits Zidipay wallets are organised into three KYC tiers. Limits below are denominated in Kenyan shillings for the Kenyan wallet; equivalent amounts apply in UG, TZ, and RW per the country addenda.\u2026",
+          "chunk_id": "aml-kyc-policy:0002"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": false
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "Context block [2] directly states the maximum daily transaction limit for a Tier 1 wallet"
+      },
+      "substring_match": false,
+      "token_overlap": 0.375
+    },
+    {
+      "id": "Q14",
+      "topic": "AML/KYC",
+      "question": "What documents are required to upgrade to a Tier 2 wallet?",
+      "answer": "To upgrade to a Tier 2 wallet, the required documents are:\n* Government-issued ID\n* Proof of address (utility bill or bank statement not older than 3 months) [2]",
+      "refused": false,
+      "latency_ms": 5033,
+      "gold_answer": "A government-issued ID plus proof of address (utility bill or bank statement no older than 3 months).",
+      "expected_source": {
+        "doc_id": "aml-kyc-policy",
+        "section_keywords": [
+          "Tier 2"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "aml-kyc-policy",
+          "doc_title": "Zidipay AML and KYC Policy",
+          "section": "Zidipay AML and KYC Policy",
+          "source": "aml-kyc-policy.pdf",
+          "snippet": "Tier 2 \u2014 verified Maximum daily transaction: KES 500,000. Maximum balance: KES 1,000,000. Required documents: government-issued ID and proof of address (utility bill or bank statement not older than 3 months). Permitted activities: as Tier 1 plus domestic bank payouts and merchant settlement. Tier 3 \u2014 full Maximum dai\u2026",
+          "chunk_id": "aml-kyc-policy:0003"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": false
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "answer matches context block [2]"
+      },
+      "substring_match": false,
+      "token_overlap": 0.9166666666666666
+    },
+    {
+      "id": "Q15",
+      "topic": "Travel",
+      "question": "How far in advance must international travel be booked?",
+      "answer": "International travel must be booked at least **14 calendar days** in advance [1].",
+      "refused": false,
+      "latency_ms": 4192,
+      "gold_answer": "At least 14 calendar days in advance, through the company travel agent Maridadi Travel.",
+      "expected_source": {
+        "doc_id": "travel-policy",
+        "section_keywords": [
+          "Booking"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "travel-policy",
+          "doc_title": "Travel Policy",
+          "section": "Travel Policy > 2. Booking",
+          "source": "travel-policy.md",
+          "snippet": "## 2. Booking All flights, hotels, and ground transport must be booked through the company travel agent **Maridadi Travel** (travel@maridadi.example, +254 700 555 222) using your assigned cost centre. Self-booking is only permitted where Maridadi cannot confirm a booking within 4 working hours and a written exception\u2026",
+          "chunk_id": "travel-policy:0002"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": true
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "answer matches context"
+      },
+      "substring_match": false,
+      "token_overlap": 0.5
+    },
+    {
+      "id": "Q16",
+      "topic": "Onboarding",
+      "question": "What is the standard probation period at Zidipay?",
+      "answer": "The standard probation period at Zidipay is 3 months, which can be extended once by 1 month with a written reason [4].",
+      "refused": false,
+      "latency_ms": 4954,
+      "gold_answer": "3 months, extendable once by 1 month with a written reason.",
+      "expected_source": {
+        "doc_id": "onboarding-and-offboarding-procedure",
+        "section_keywords": [
+          "Probation"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "onboarding-and-offboarding-procedure",
+          "doc_title": "Onboarding and Offboarding Procedure",
+          "section": "Onboarding and Offboarding Procedure > 5. Probation",
+          "source": "onboarding-and-offboarding-procedure.md",
+          "snippet": "## 5. Probation The standard probation period is **3 months** (extendable once by 1 month with written reason). At the end of probation, the manager completes a probation review with HRBP. Confirmation, extension, or termination is decided at that review.",
+          "chunk_id": "onboarding-and-offboarding-procedure:0005"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": true
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "Context block [4] directly supports the answer"
+      },
+      "substring_match": false,
+      "token_overlap": 0.8571428571428571
+    },
+    {
+      "id": "Q17",
+      "topic": "Offboarding",
+      "question": "When is access disabled for a departing employee?",
+      "answer": "Access is disabled for a departing employee on their last day at 17:00 local time [1]. This is mandatory regardless of how amicable the departure.",
+      "refused": false,
+      "latency_ms": 4228,
+      "gold_answer": "At 17:00 local time on the last working day, regardless of how amicable the departure.",
+      "expected_source": {
+        "doc_id": "onboarding-and-offboarding-procedure",
+        "section_keywords": [
+          "offboarding",
+          "Resignation"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "onboarding-and-offboarding-procedure",
+          "doc_title": "Onboarding and Offboarding Procedure",
+          "section": "Onboarding and Offboarding Procedure > 6. Resignation and offboarding",
+          "source": "onboarding-and-offboarding-procedure.md",
+          "snippet": "## 6. Resignation and offboarding When an employee resigns or is given notice: 1. **Day of notice:** People Operations records the leave date and notifies the manager, IT, Finance, and Security. 2. **Notice period:** standard notice is **30 calendar days** for non-managers and **60 calendar days** for managers and Lev\u2026",
+          "chunk_id": "onboarding-and-offboarding-procedure:0006"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": true
+      },
+      "judge": {
+        "groundedness": "not_supported",
+        "citation_supports_answer": false,
+        "reason": "time of access disablement not mentioned in context"
+      },
+      "substring_match": false,
+      "token_overlap": 0.9
+    },
+    {
+      "id": "Q18",
+      "topic": "Data privacy",
+      "question": "Within how many days must Zidipay respond to a data subject access request?",
+      "answer": "Zidipay must respond to a data subject access request within 30 calendar days, which can be extended by 30 days for complex requests [1].",
+      "refused": false,
+      "latency_ms": 4561,
+      "gold_answer": "Within 30 calendar days, extendable by another 30 days for complex requests.",
+      "expected_source": {
+        "doc_id": "data-protection-and-privacy-policy",
+        "section_keywords": [
+          "rights"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "data-protection-and-privacy-policy",
+          "doc_title": "Data Protection and Privacy Policy",
+          "section": "Data Protection and Privacy Policy",
+          "source": "data-protection-and-privacy-policy.html",
+          "snippet": "Requests are submitted at privacy@zidipay.example. Zidipay responds within 30 calendar days, extendable by 30 days for complex requests with a written explanation. No fee is charged for the first request in any 12-month period. 5. Consent Where consent is the lawful basis, it must be freely given, specific, informed,\u2026",
+          "chunk_id": "data-protection-and-privacy-policy:0004"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": false
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "answer matches context"
+      },
+      "substring_match": false,
+      "token_overlap": 0.75
+    },
+    {
+      "id": "Q19",
+      "topic": "Anti-bribery",
+      "question": "What is the de minimis threshold above which gifts must be disclosed at Zidipay?",
+      "answer": "The de minimis threshold above which gifts must be disclosed at Zidipay is KES 5,000 or more per item, per giver, per year [1]. Gifts of KES 25,000 or more require pre-approval from the line manager and Compliance, or must be politely declined [1], [3].",
+      "refused": false,
+      "latency_ms": 4642,
+      "gold_answer": "Gifts of KES 5,000 or more (per item, per giver, per year) must be reported within 7 days.",
+      "expected_source": {
+        "doc_id": "anti-bribery-and-code-of-conduct",
+        "section_keywords": [
+          "de minimis",
+          "Gifts"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "anti-bribery-and-code-of-conduct",
+          "doc_title": "Zidipay Anti-Bribery Policy and Code of Conduct",
+          "section": "Zidipay Anti-Bribery Policy and Code of Conduct",
+          "source": "anti-bribery-and-code-of-conduct.pdf",
+          "snippet": "whether the other party is a private individual, a customer, a partner, a competitor, or a public official, and regardless of whether the bribe is paid directly or through a third party. Facilitation payments \u2014 small unofficial payments to expedite a routine service \u2014 are also prohibited. 3. Gifts and hospitality Mode\u2026",
+          "chunk_id": "anti-bribery-and-code-of-conduct:0001"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": false
+      },
+      "judge": {
+        "groundedness": "not_supported",
+        "citation_supports_answer": false,
+        "reason": "de minimis threshold not found in context"
+      },
+      "substring_match": false,
+      "token_overlap": 0.75
+    },
+    {
+      "id": "Q20",
+      "topic": "Incident response",
+      "question": "What is the RTO for a Sev 1 incident?",
+      "answer": "The RTO for a Sev 1 incident is 30 minutes [3].",
+      "refused": false,
+      "latency_ms": 4542,
+      "gold_answer": "30 minutes; RPO is 5 minutes.",
+      "expected_source": {
+        "doc_id": "incident-response-and-business-continuity",
+        "section_keywords": [
+          "Severity"
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "incident-response-and-business-continuity",
+          "doc_title": "Incident Response and Business Continuity",
+          "section": "Incident Response and Business Continuity > 3. Severity levels",
+          "source": "incident-response-and-business-continuity.md",
+          "snippet": "## 3. Severity levels | Severity | Definition | Examples | RTO | RPO | | --- | --- | --- | --- | --- | | **Sev 1** | Customer-facing outage, regulatory data loss, or confirmed breach of Restricted data | Wallet payments down across all markets, breach of customer KYC database | **30 minutes** | **5 minutes** | | **Sev\u2026",
+          "chunk_id": "incident-response-and-business-continuity:0003"
+        }
+      ],
+      "deterministic_check": {
+        "expected_doc_in_contexts": true,
+        "expected_doc_in_citations": true,
+        "expected_section_keyword_hit": true
+      },
+      "judge": {
+        "groundedness": "supported",
+        "citation_supports_answer": true,
+        "reason": "Context block [3] explicitly states the RTO for Sev 1 incidents as 30 minutes"
+      },
+      "substring_match": false,
+      "token_overlap": 0.5
+    },
+    {
+      "id": "OOC01",
+      "topic": "Out of scope",
+      "question": "What is Zidipay's current share price?",
+      "answer": "I can only answer questions about Zidipay's policies and procedures.",
+      "refused": true,
+      "latency_ms": 4244,
+      "expected_refusal": true,
+      "citations": []
+    },
+    {
+      "id": "OOC02",
+      "topic": "Out of scope",
+      "question": "How do I cook traditional Kenyan pilau?",
+      "answer": "I can only answer questions about Zidipay's policies and procedures.",
+      "refused": true,
+      "latency_ms": 4513,
+      "expected_refusal": true,
+      "citations": []
+    },
+    {
+      "id": "OOC03",
+      "topic": "Out of scope",
+      "question": "Who won the 2026 UEFA Champions League?",
+      "answer": "I can only answer questions about Zidipay's policies and procedures.",
+      "refused": true,
+      "latency_ms": 4392,
+      "expected_refusal": true,
+      "citations": []
+    },
+    {
+      "id": "OOC04",
+      "topic": "Out of scope",
+      "question": "What are the latest mortgage interest rates in Kenya?",
+      "answer": "I can only answer questions about Zidipay's policies and procedures.",
+      "refused": true,
+      "latency_ms": 4590,
+      "expected_refusal": true,
+      "citations": []
+    }
+  ]
+}

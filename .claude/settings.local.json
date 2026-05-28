@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where python *)",
+      "Bash(where python3 *)",
+      "Bash(where python3.11)",
+      "Bash(where py *)",
+      "Bash(py -0)",
+      "Bash(python -m venv .venv)",
+      "Bash(.venv/Scripts/python.exe -m pip install --upgrade pip wheel setuptools)",
+      "Bash(.venv/Scripts/python.exe -m pip install --upgrade --trusted-host pypi.org --trusted-host files.pythonhosted.org --trusted-host pypi.python.org pip wheel setuptools)",
+      "Bash(.venv/Scripts/python.exe -m pip config set global.trusted-host \"pypi.org files.pythonhosted.org pypi.python.org\")",
+      "Bash(.venv/Scripts/python.exe -m pip install reportlab==4.2.5)",
+      "Bash(.venv/Scripts/python.exe scripts/generate_pdfs.py)",
+      "Bash(.venv/Scripts/python.exe -m pip install -r requirements.txt)",
+      "Bash(.venv/Scripts/python.exe -m pytest -q)",
+      "Bash(.venv/Scripts/python.exe -c \"import certifi; print\\(certifi.where\\(\\)\\)\")",
+      "Bash(REQUESTS_CA_BUNDLE=\"C:\\\\Users\\\\user\\\\Documents\\\\MSSE\\\\Zidipay-RAG\\\\.venv\\\\lib\\\\site-packages\\\\certifi\\\\cacert.pem\" SSL_CERT_FILE=\"C:\\\\Users\\\\user\\\\Documents\\\\MSSE\\\\Zidipay-RAG\\\\.venv\\\\lib\\\\site-packages\\\\certifi\\\\cacert.pem\" .venv/Scripts/python.exe -c \"from langchain_huggingface import HuggingFaceEmbeddings; e = HuggingFaceEmbeddings\\(model_name='BAAI/bge-small-en-v1.5'\\); print\\('ok', len\\(e.embed_query\\('hello'\\)\\)\\)\")",
+      "Bash(.venv/Scripts/python.exe -m pip install pip-system-certs)",
+      "Bash(.venv/Scripts/python.exe -c \"from langchain_huggingface import HuggingFaceEmbeddings; e = HuggingFaceEmbeddings\\(model_name='BAAI/bge-small-en-v1.5'\\); v = e.embed_query\\('hello'\\); print\\('ok', len\\(v\\)\\)\")",
+      "Bash(.venv/Scripts/python.exe run_ingest.py)",
+      "Bash(.venv/Scripts/python.exe -c ' *)",
+      "Bash(PORT=5050 .venv/Scripts/python.exe app.py)",
+      "Bash(curl -sf http://localhost:5050/health)",
+      "Bash(curl -s http://localhost:5050/health)",
+      "Bash(curl -s -X POST http://localhost:5050/chat -H \"Content-Type: application/json\" -d '{\"question\":\"What is the maximum daily transaction limit for a Tier 1 wallet?\"}')",
+      "Bash(python -m json.tool)",
+      "Bash(curl -s -X POST http://localhost:5050/chat -H \"Content-Type: application/json\" -d '{\"question\":\"What is the current weather in Nairobi?\"}')",
+      "Bash(curl -s -I \"http://localhost:5050/source/pto-and-leave-policy\")",
+      "Bash(.venv/Scripts/python.exe eval/run_eval.py)"
+    ]
+  }
+}

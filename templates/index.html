@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Zidipay Policy Assistant</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">Z</div>
+    <div>
+      <div class="brand-title">Zidipay Policy Assistant</div>
+      <div class="brand-sub">Ask anything about Zidipay's policies and procedures</div>
+    </div>
+  </div>
+  <div class="model-chip" title="LLM in use">model: {{ model }}</div>
+</header>
+
+<main class="container">
+
+  <section class="card prompts">
+    <div class="prompts-title">Try one of these:</div>
+    <div class="suggestions">
+      <button class="suggestion">How many days of annual leave do I get each year?</button>
+      <button class="suggestion">What is the expense limit for a client dinner?</button>
+      <button class="suggestion">What KYC documents are required for a Tier 2 wallet?</button>
+      <button class="suggestion">What is the company's policy on remote work?</button>
+      <button class="suggestion">How quickly must a security incident be reported?</button>
+    </div>
+  </section>
+
+  <section id="messages" class="messages" aria-live="polite"></section>
+
+  <form id="chat-form" class="composer" autocomplete="off">
+    <input
+      id="question"
+      type="text"
+      name="question"
+      placeholder="Ask a question about Zidipay's policies…"
+      required
+      autofocus
+    />
+    <button type="submit" id="send">Ask</button>
+  </form>
+
+  <footer class="footer">
+    <span>Answers are generated from Zidipay's internal policy corpus and cite the source documents.</span>
+    <a href="/health" target="_blank" rel="noopener">/health</a>
+  </footer>
+
+</main>
+
+<template id="user-msg-tpl">
+  <div class="msg msg-user">
+    <div class="bubble"></div>
+  </div>
+</template>
+
+<template id="bot-msg-tpl">
+  <div class="msg msg-bot">
+    <div class="bubble">
+      <div class="answer"></div>
+      <div class="meta-row">
+        <span class="latency"></span>
+      </div>
+      <div class="citations"></div>
+    </div>
+  </div>
+</template>
+
+<template id="thinking-tpl">
+  <div class="msg msg-bot thinking">
+    <div class="bubble">
+      <div class="dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</template>
+
+<script>
+(function () {
+  const form = document.getElementById('chat-form');
+  const input = document.getElementById('question');
+  const send = document.getElementById('send');
+  const msgs = document.getElementById('messages');
+
+  document.querySelectorAll('.suggestion').forEach(btn => {
+    btn.addEventListener('click', () => {
+      input.value = btn.textContent;
+      input.focus();
+    });
+  });
+
+  function escapeHtml(s) {
+    return (s || '').replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[c]);
+  }
+
+  function renderAnswerText(text) {
+    // Lightweight: preserve [n] citations + paragraph + bullet structure.
+    const lines = (text || '').split('\n');
+    let html = '';
+    let inList = false;
+    for (const raw of lines) {
+      const line = raw.trim();
+      const bullet = line.match(/^[-*]\s+(.*)$/);
+      if (bullet) {
+        if (!inList) { html += '<ul>'; inList = true; }
+        html += '<li>' + escapeHtml(bullet[1]) + '</li>';
+      } else {
+        if (inList) { html += '</ul>'; inList = false; }
+        if (line) html += '<p>' + escapeHtml(line) + '</p>';
+      }
+    }
+    if (inList) html += '</ul>';
+    return html;
+  }
+
+  function renderCitation(c, n) {
+    const title = escapeHtml(c.doc_title || 'Source');
+    const section = c.section ? ' — ' + escapeHtml(c.section) : '';
+    const snippet = escapeHtml(c.snippet || '');
+    const href = '/source/' + encodeURIComponent(c.doc_id || '');
+    return `
+      <article class="citation">
+        <div class="citation-head">
+          <span class="cite-num">[${n}]</span>
+          <a class="cite-link" href="${href}" target="_blank" rel="noopener">${title}${section}</a>
+        </div>
+        <div class="citation-snippet">${snippet}</div>
+      </article>`;
+  }
+
+  function appendUser(text) {
+    const tpl = document.getElementById('user-msg-tpl').content.cloneNode(true);
+    tpl.querySelector('.bubble').textContent = text;
+    msgs.appendChild(tpl);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function appendThinking() {
+    const tpl = document.getElementById('thinking-tpl').content.cloneNode(true);
+    const node = tpl.querySelector('.thinking');
+    msgs.appendChild(tpl);
+    msgs.scrollTop = msgs.scrollHeight;
+    return node;
+  }
+
+  function appendBot(payload) {
+    const tpl = document.getElementById('bot-msg-tpl').content.cloneNode(true);
+    const bubble = tpl.querySelector('.bubble');
+    if (payload.refused) bubble.classList.add('refused');
+    tpl.querySelector('.answer').innerHTML = renderAnswerText(payload.answer);
+    const ms = Number(payload.latency_ms || 0);
+    tpl.querySelector('.latency').textContent = ms ? (ms + ' ms') : '';
+    const citationsEl = tpl.querySelector('.citations');
+    if (payload.citations && payload.citations.length) {
+      citationsEl.innerHTML =
+        '<div class="citations-title">Sources</div>' +
+        payload.citations.map((c, i) => renderCitation(c, i + 1)).join('');
+    }
+    msgs.appendChild(tpl);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  async function ask(question) {
+    const thinkingNode = appendThinking();
+    try {
+      const r = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question })
+      });
+      const data = await r.json();
+      thinkingNode.remove();
+      appendBot(data);
+    } catch (e) {
+      thinkingNode.remove();
+      appendBot({
+        answer: 'Something went wrong reaching the server. Please try again.',
+        citations: [], latency_ms: 0, refused: false
+      });
+    }
+  }
+
+  form.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    const q = (input.value || '').trim();
+    if (!q) return;
+    appendUser(q);
+    input.value = '';
+    send.disabled = true;
+    ask(q).finally(() => { send.disabled = false; input.focus(); });
+  });
+})();
+</script>
+</body>
+</html>

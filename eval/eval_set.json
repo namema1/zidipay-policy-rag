@@ -1,0 +1,172 @@
+{
+  "version": "1.0",
+  "description": "Evaluation set for the Zidipay Policy RAG. 20 in-corpus + 4 out-of-corpus.",
+  "in_corpus": [
+    {
+      "id": "Q01",
+      "topic": "PTO",
+      "question": "How many days of annual leave does a permanent employee accrue per year at Zidipay?",
+      "gold_answer": "Permanent employees accrue 24 working days of paid annual leave per calendar year, at 2 days per month.",
+      "expected_source": { "doc_id": "pto-and-leave-policy", "section_keywords": ["Annual leave"] }
+    },
+    {
+      "id": "Q02",
+      "topic": "PTO",
+      "question": "How many days of annual leave can be carried over into the next year and by when must they be used?",
+      "gold_answer": "Up to 5 unused days may be carried into the next calendar year and must be used by 31 March.",
+      "expected_source": { "doc_id": "pto-and-leave-policy", "section_keywords": ["Carry-over"] }
+    },
+    {
+      "id": "Q03",
+      "topic": "PTO",
+      "question": "How much maternity leave does Zidipay offer?",
+      "gold_answer": "90 calendar days of fully paid maternity leave, with up to an additional 30 days of unpaid leave on request.",
+      "expected_source": { "doc_id": "pto-and-leave-policy", "section_keywords": ["Parental"] }
+    },
+    {
+      "id": "Q04",
+      "topic": "Expense",
+      "question": "What is the per-head limit for a client dinner?",
+      "gold_answer": "KES 8,000 per head.",
+      "expected_source": { "doc_id": "expense-and-reimbursement-policy", "section_keywords": ["Meal", "client", "entertainment"] }
+    },
+    {
+      "id": "Q05",
+      "topic": "Expense",
+      "question": "What is the domestic per-diem rate for business travel?",
+      "gold_answer": "KES 6,500 per night for domestic travel within your home country.",
+      "expected_source": { "doc_id": "expense-and-reimbursement-policy", "section_keywords": ["Per diem"] }
+    },
+    {
+      "id": "Q06",
+      "topic": "Expense",
+      "question": "How many days do I have to submit my expenses after incurring them?",
+      "gold_answer": "Expenses must be submitted within 30 days of being incurred.",
+      "expected_source": { "doc_id": "expense-and-reimbursement-policy", "section_keywords": ["Principles", "Submission"] }
+    },
+    {
+      "id": "Q07",
+      "topic": "Remote work",
+      "question": "How many days per week are hybrid employees expected to be in the office?",
+      "gold_answer": "At least 3 days per week, with Tuesday and Wednesday as mandatory anchor days.",
+      "expected_source": { "doc_id": "remote-and-hybrid-work-policy", "section_keywords": ["arrangements", "Hybrid"] }
+    },
+    {
+      "id": "Q08",
+      "topic": "Remote work",
+      "question": "Who is eligible for fully remote work at Zidipay?",
+      "gold_answer": "Fully remote work is available case-by-case for roles at Level 4 and above, subject to Head of Department and Head of People approval.",
+      "expected_source": { "doc_id": "remote-and-hybrid-work-policy", "section_keywords": ["arrangements", "Eligibility"] }
+    },
+    {
+      "id": "Q09",
+      "topic": "Security",
+      "question": "How quickly must a suspected security incident be reported?",
+      "gold_answer": "Within 60 minutes of discovery, by email to security@zidipay.example or via the 24/7 hotline.",
+      "expected_source": { "doc_id": "information-security-policy", "section_keywords": ["Incident"] }
+    },
+    {
+      "id": "Q10",
+      "topic": "Security",
+      "question": "What is the required second factor for MFA at Zidipay?",
+      "gold_answer": "The YubiKey hardware token. SMS-based MFA is explicitly prohibited.",
+      "expected_source": { "doc_id": "information-security-policy", "section_keywords": ["Passwords", "authentication"] }
+    },
+    {
+      "id": "Q11",
+      "topic": "Public holidays",
+      "question": "When is Mashujaa Day observed in Kenya in 2024?",
+      "gold_answer": "Sunday, 20 October 2024.",
+      "expected_source": { "doc_id": "public-holidays-and-working-hours", "section_keywords": ["Kenya"] }
+    },
+    {
+      "id": "Q12",
+      "topic": "Public holidays",
+      "question": "What are Zidipay's core working hours?",
+      "gold_answer": "Core hours are 10:00 to 15:00 local time, when all employees must be reachable.",
+      "expected_source": { "doc_id": "public-holidays-and-working-hours", "section_keywords": ["WORKING HOURS"] }
+    },
+    {
+      "id": "Q13",
+      "topic": "AML/KYC",
+      "question": "What is the maximum daily transaction limit for a Tier 1 wallet?",
+      "gold_answer": "KES 50,000 per day, with a maximum balance of KES 100,000.",
+      "expected_source": { "doc_id": "aml-kyc-policy", "section_keywords": ["Tier 1"] }
+    },
+    {
+      "id": "Q14",
+      "topic": "AML/KYC",
+      "question": "What documents are required to upgrade to a Tier 2 wallet?",
+      "gold_answer": "A government-issued ID plus proof of address (utility bill or bank statement no older than 3 months).",
+      "expected_source": { "doc_id": "aml-kyc-policy", "section_keywords": ["Tier 2"] }
+    },
+    {
+      "id": "Q15",
+      "topic": "Travel",
+      "question": "How far in advance must international travel be booked?",
+      "gold_answer": "At least 14 calendar days in advance, through the company travel agent Maridadi Travel.",
+      "expected_source": { "doc_id": "travel-policy", "section_keywords": ["Booking"] }
+    },
+    {
+      "id": "Q16",
+      "topic": "Onboarding",
+      "question": "What is the standard probation period at Zidipay?",
+      "gold_answer": "3 months, extendable once by 1 month with a written reason.",
+      "expected_source": { "doc_id": "onboarding-and-offboarding-procedure", "section_keywords": ["Probation"] }
+    },
+    {
+      "id": "Q17",
+      "topic": "Offboarding",
+      "question": "When is access disabled for a departing employee?",
+      "gold_answer": "At 17:00 local time on the last working day, regardless of how amicable the departure.",
+      "expected_source": { "doc_id": "onboarding-and-offboarding-procedure", "section_keywords": ["offboarding", "Resignation"] }
+    },
+    {
+      "id": "Q18",
+      "topic": "Data privacy",
+      "question": "Within how many days must Zidipay respond to a data subject access request?",
+      "gold_answer": "Within 30 calendar days, extendable by another 30 days for complex requests.",
+      "expected_source": { "doc_id": "data-protection-and-privacy-policy", "section_keywords": ["rights"] }
+    },
+    {
+      "id": "Q19",
+      "topic": "Anti-bribery",
+      "question": "What is the de minimis threshold above which gifts must be disclosed at Zidipay?",
+      "gold_answer": "Gifts of KES 5,000 or more (per item, per giver, per year) must be reported within 7 days.",
+      "expected_source": { "doc_id": "anti-bribery-and-code-of-conduct", "section_keywords": ["de minimis", "Gifts"] }
+    },
+    {
+      "id": "Q20",
+      "topic": "Incident response",
+      "question": "What is the RTO for a Sev 1 incident?",
+      "gold_answer": "30 minutes; RPO is 5 minutes.",
+      "expected_source": { "doc_id": "incident-response-and-business-continuity", "section_keywords": ["Severity"] }
+    }
+  ],
+  "out_of_corpus": [
+    {
+      "id": "OOC01",
+      "topic": "Out of scope",
+      "question": "What is Zidipay's current share price?",
+      "expected_refusal": true
+    },
+    {
+      "id": "OOC02",
+      "topic": "Out of scope",
+      "question": "How do I cook traditional Kenyan pilau?",
+      "expected_refusal": true
+    },
+    {
+      "id": "OOC03",
+      "topic": "Out of scope",
+      "question": "Who won the 2026 UEFA Champions League?",
+      "expected_refusal": true
+    },
+    {
+      "id": "OOC04",
+      "topic": "Out of scope",
+      "question": "What are the latest mortgage interest rates in Kenya?",
+      "expected_refusal": true
+    }
+  ]
+}
