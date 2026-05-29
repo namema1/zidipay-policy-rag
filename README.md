@@ -6,7 +6,7 @@ colorTo: blue
 sdk: docker
 app_port: 7860
 pinned: false
-short_description: A RAG chatbot answering questions about Zidipay's internal policies and procedures with grounded citations.
+short_description: Grounded RAG over Zidipay's internal policy corpus.
 ---
 
 # Zidipay Policy RAG
