@@ -1,0 +1,62 @@
+name: CD
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to Hugging Face Space
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Only deploy when the CI run that triggered us:
+    #   (a) succeeded, AND
+    #   (b) ran on the main branch.
+    # workflow_dispatch lets you re-run a deploy manually from the Actions tab.
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main')
+    steps:
+      - name: Check deploy secrets
+        id: secrets
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_SPACE_ID: ${{ secrets.HF_SPACE_ID }}
+        run: |
+          if [ -z "$HF_TOKEN" ] || [ -z "$HF_SPACE_ID" ]; then
+            echo "missing=true" >> "$GITHUB_OUTPUT"
+            echo "::notice ::Skipping deploy — HF_TOKEN or HF_SPACE_ID secret is not set."
+          else
+            echo "missing=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - if: steps.secrets.outputs.missing == 'false'
+        uses: actions/checkout@v4
+        with:
+          # workflow_run does NOT check out the commit the CI ran on by default;
+          # pass the head_sha explicitly so we deploy exactly what was tested.
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 0
+
+      - if: steps.secrets.outputs.missing == 'false'
+        name: Push to Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_SPACE_ID: ${{ secrets.HF_SPACE_ID }}
+        run: |
+          git config --global user.email "ci@zidipay.example"
+          git config --global user.name "Zidipay CI"
+          # HF_SPACE_ID is in the form "username/spacename".
+          git remote add space "https://user:${HF_TOKEN}@huggingface.co/spaces/${HF_SPACE_ID}"
+          # Force-push the tested commit to the Space's main branch.
+          git push --force space HEAD:main
+
+      - if: steps.secrets.outputs.missing == 'false'
+        name: Deploy summary
+        run: |
+          echo "### Deployed to Hugging Face Space" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Commit: \`${{ github.event.workflow_run.head_sha || github.sha }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Space: https://huggingface.co/spaces/${{ secrets.HF_SPACE_ID }}" >> "$GITHUB_STEP_SUMMARY"
