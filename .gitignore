@@ -26,5 +26,3 @@ dist/
 models/
 *.log
 .claude/
-
-.claude/
