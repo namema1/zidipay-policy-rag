@@ -9,9 +9,9 @@ from langchain_core.documents import Document
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_groq import ChatGroq
 
+import rag.config as _cfg
 from rag.config import (
     GROQ_API_KEY,
-    GROQ_MODEL,
     MAX_OUTPUT_TOKENS,
     REFUSAL_MESSAGE,
     SCORE_THRESHOLD,
@@ -113,7 +113,7 @@ def _make_llm(model: Optional[str] = None, max_tokens: Optional[int] = None) -> 
         )
     return ChatGroq(
         api_key=GROQ_API_KEY,
-        model=model or GROQ_MODEL,
+        model=model or _cfg.GROQ_MODEL,
         temperature=0,
         max_tokens=max_tokens or MAX_OUTPUT_TOKENS,
     )

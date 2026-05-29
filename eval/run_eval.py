@@ -41,7 +41,10 @@ from rag.pipeline import answer as rag_answer
 
 EVAL_SET_PATH = ROOT / "eval" / "eval_set.json"
 RESULTS_DIR = ROOT / "eval" / "results"
-DEFAULT_SLEEP_BETWEEN_CALLS = 2.0  # seconds; Groq free tier is rate-limited
+DEFAULT_SLEEP_BETWEEN_CALLS = 4.0  # seconds; Groq free tier TPD limit ~100k tokens
+
+# Override model for eval/judge without touching .env — set via --model flag.
+_EVAL_MODEL: str = GROQ_MODEL
 
 
 # ---------------------------------------------------------------------------
@@ -125,7 +128,7 @@ def _judge_llm():
         return None
     return ChatGroq(
         api_key=GROQ_API_KEY,
-        model=GROQ_MODEL,
+        model=_EVAL_MODEL,
         temperature=0,
         max_tokens=200,
     )
@@ -415,8 +418,15 @@ def write_ablations_md(rows: list[dict], path: Path) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
+    global _EVAL_MODEL
+
     parser = argparse.ArgumentParser(description="Run the Zidipay RAG evaluation.")
     parser.add_argument("--sleep", type=float, default=DEFAULT_SLEEP_BETWEEN_CALLS)
+    parser.add_argument(
+        "--model",
+        default=None,
+        help="Override the Groq model for both pipeline and judge (e.g. llama-3.1-8b-instant).",
+    )
     parser.add_argument(
         "--ablate", action="store_true", help="Run an ablation sweep and exit."
     )
@@ -427,6 +437,12 @@ def main(argv: list[str] | None = None) -> int:
         help="Only run the first N in-corpus questions (for smoke tests).",
     )
     args = parser.parse_args(argv)
+
+    if args.model:
+        _EVAL_MODEL = args.model
+        # Also propagate to the pipeline's LLM so pipeline.answer() uses the same model.
+        import rag.config as _rc
+        _rc.GROQ_MODEL = args.model
 
     set_seeds(SEED)
     random.seed(SEED)
@@ -468,7 +484,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Wrote {RESULTS_DIR/'ablations.md'} and ablations.json")
         return 0
 
-    print(f"Running eval against {GROQ_MODEL} (sleep={args.sleep}s between calls)…")
+    print(f"Running eval against {_EVAL_MODEL} (sleep={args.sleep}s between calls)...")
     started = time.time()
     run = run_once(eval_set, sleep_s=args.sleep)
     elapsed = time.time() - started
