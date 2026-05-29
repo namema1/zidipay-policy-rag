@@ -36,8 +36,14 @@ COPY . /app
 # Make the cache and persist dirs writable by the runtime user
 RUN mkdir -p /app/data/chroma /app/.cache && chmod -R 777 /app/data /app/.cache
 
-EXPOSE 7860
-ENV PORT=7860
+# Pre-build the Chroma index at image build time. HF Spaces mounts /app
+# read-only at runtime, so we cannot build on first request.
+RUN python -c "from rag.ingest import build_index; _, n = build_index(); print(f'Built index with {n} chunks.')"
 
-# Gunicorn serves the Flask app; startup ingestion runs inside app.py on import.
-CMD ["sh", "-c", "gunicorn -b 0.0.0.0:${PORT:-7860} --workers 1 --threads 4 --timeout 180 app:app"]
+EXPOSE 7860
+ENV PORT=7860 \
+    CHROMA_DIR=/tmp/chroma
+
+# At runtime, copy the baked index to /tmp (the only reliably writable path on
+# HF Spaces) so Chroma's SQLite can open it read-write for queries.
+CMD ["sh", "-c", "rm -rf /tmp/chroma && cp -r /app/data/chroma /tmp/chroma && gunicorn -b 0.0.0.0:${PORT:-7860} --workers 1 --threads 4 --timeout 180 app:app"]
