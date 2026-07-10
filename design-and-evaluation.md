@@ -6,6 +6,37 @@ This document records the design decisions behind the Zidipay Policy RAG and the
 
 ## i. Design & Architecture Decisions
 
+### 1.0 Architecture at a glance
+
+The pipeline is deliberately imperative — **retrieve → format → call → parse** — not a LangChain "chain", so every stage is independently testable. Ingestion (top subgraph) runs at Docker build time and again on first startup if the persist directory is empty; the query path (bottom subgraph) runs on every request. Refusal is enforced at two points: **Guardrail 1** is the retrieval-score gate (refuses without any LLM call), and **Guardrail 2** is the system-prompt instruction (belt-and-braces for borderline cases). Both are detailed in §1.10.
+
+```mermaid
+flowchart TD
+    subgraph Ingest["Ingestion — build time / empty-dir startup"]
+        A["Corpus: 14 docs<br/>Markdown · HTML · PDF · TXT"] --> B["LangChain loaders<br/>→ Document objects<br/>doc_id · doc_title · section"]
+        B --> C{"Markdown<br/>source?"}
+        C -->|yes| D["MarkdownHeaderTextSplitter<br/>header-aware, carries section path"]
+        C -->|no| E["RecursiveCharacterTextSplitter"]
+        D --> F["chunk_size 1100 · overlap 150"]
+        E --> F
+        F --> G["BGE-small embeddings<br/>local · deterministic · no API key"]
+        G --> H[("Chroma vector store<br/>126 chunks / 14 docs")]
+    end
+
+    subgraph Query["Query time — every request"]
+        Q(["User question"]) --> R["Retriever: fetch K_FETCH=15 candidates"]
+        H -.->|similarity search| R
+        R --> RR["Optional cross-encoder re-rank of the 15<br/>built, disabled in prod"]
+        RR --> K["Keep top TOP_K=8"]
+        K --> GATE{"top-1 similarity<br/>&ge; SCORE_THRESHOLD 0.25?"}
+        GATE -->|no| REF["Refuse (Guardrail 1)<br/>canonical string, no LLM call"]
+        GATE -->|yes| CTX["Format numbered context blocks [1..n]"]
+        CTX --> LLM["Groq llama-3.3-70b-versatile<br/>temp 0 · cite every claim [n]<br/>refuse if insufficient (Guardrail 2)"]
+        LLM --> OUT(["Answer + structured citations<br/>doc_id · doc_title · section · snippet"])
+        REF --> OUT
+    end
+```
+
 ### 1.1 Goal
 
 Build a small, reliable Q&A app over Zidipay's policy corpus that:
