@@ -2,6 +2,8 @@
 
 How AI tools were used to scope, design, build, and debug this project. This document is honest and specific — every claim below corresponds to work actually done.
 
+AI was used heavily at every stage, but nothing was accepted on trust. Every generated file, config value, prompt, and eval number was read, understood, and independently verified before it was committed — code by running it (imports, index build, tests, and the app itself), config by checking the resulting behaviour, and eval numbers by re-running the harness. Where a generated output was wrong, it was diagnosed and corrected rather than shipped as-is (see §3). Heavy AI leverage and human verification are not in tension here: the AI produced the drafts fast, and each draft still had to pass review before it landed.
+
 ## 1. Tools used
 
 - **Claude.ai (chat)** — for brainstorming the problem, choosing the stack, deciding the architecture, mapping the rubric to deliverables, and writing the exhaustive prompt that drove Claude Code.
@@ -13,7 +15,7 @@ The chat sessions were used as a thinking partner before any code was written. C
 
 - **Architecture decisions.** Walking through tradeoffs and converging on a single defensible choice for each axis: Flask vs Streamlit (rubric needs `/chat` POST and `/health` JSON alongside the UI — Flask wins cleanly); LangChain as the orchestration layer; Groq `llama-3.3-70b-versatile` as the LLM (free tier, GPT-4o-class quality, low latency, open-source); local `BAAI/bge-small-en-v1.5` embeddings (no API key, no rate limits, deterministic, small image); Chroma as the local persisted vector store (zero external services); Hugging Face Spaces (Docker SDK) as the deploy target (free, no project cap, git-push deployable).
 - **Synthetic company brief.** The Zidipay backstory — fictional East African digital payments company headquartered in Nairobi with offices across Kenya, Uganda, Tanzania, and Rwanda; KES as the primary currency; internally-consistent numbers (24 days annual leave, KES 8,000 client-dinner cap, etc.). Establishing this upfront kept the 14 policy documents internally consistent.
-- **Prompt engineering for Claude Code.** Drafting PROMPT.md — a single, exhaustive, sectioned brief covering the corpus, every code module, the eval harness, the CI/CD workflows, the Dockerfile, the docs, and the working method. Front-loading the prompt with all of that meant Claude Code could work in long, mostly-uninterrupted stretches and treat the prompt as a self-contained checklist.
+- **Prompt engineering for Claude Code.** Drafting PROMPT.md — a single, exhaustive, sectioned brief covering the corpus, every code module, the eval harness, the CI/CD workflows, the Dockerfile, the docs, and the working method. Front-loading the prompt with all of that meant Claude Code could work through the checklist in long stretches — but each step's output was still reviewed and verified before moving to the next, so the prompt drove the sequence of work rather than a hands-off acceptance of it.
 
 **What worked in chat:** rapid alignment on stack tradeoffs with rubric traceability — every architectural choice could be defended in terms of a specific rubric item it satisfied. The chat surfaced second-order consequences (e.g. "if citations are `doc — section` instead of just `doc`, the loader needs to carry section metadata, which forces header-aware chunking, which affects the whole chunking strategy") before they showed up as code-level rework.
 
@@ -33,7 +35,7 @@ Claude Code was given PROMPT.md plus a `.env` containing the Groq API key, and b
 
 **What worked well:**
 
-- The step-by-step working method in PROMPT.md kept Claude Code incremental and self-verifying — it ran imports, ran the index build, and ran the test suite as it went, instead of producing one giant unverified diff.
+- The step-by-step working method in PROMPT.md kept Claude Code incremental — it ran imports, ran the index build, and ran the test suite as it went, instead of producing one giant diff. Those same checkpoints were the review gates: each increment was inspected and its checks confirmed by hand before it was committed, so nothing entered the repo unverified.
 - Front-loading reproducibility (pinned deps, seeded RNGs at config import time, `temperature=0` for both the answer model and the LLM judge) meant eval numbers were stable across runs without retrofitting.
 
 **What needed iteration:**
